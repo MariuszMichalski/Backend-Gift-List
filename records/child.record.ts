@@ -6,7 +6,6 @@ import {FieldPacket} from "mysql2";
 type ChildRecordResults = [ChildRecord[], FieldPacket[]];
 
 export class ChildRecord {
-
     public id?: string;
     public name: string;
     public giftId: string;

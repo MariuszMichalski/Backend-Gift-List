@@ -9,14 +9,14 @@ import"./utils/db";
 
 const app = express();
 
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
 app.use(express.urlencoded({
     extended: true,
 }));
 app.use(express.static('public'));
 app.use(express.json()); // Content-type: application/json
-app.use(cors({
-    origin: 'http://localhost:3000'
-}))
 
 app.use('/', homeRouter);
 app.use('/child', childRouter);
