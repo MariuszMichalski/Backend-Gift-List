@@ -1,7 +1,7 @@
 import {Router} from "express";
 import {GiftRecord} from "../records/gift.record";
 import {ValidationError} from "../utils/errors";
-import {GiftEntity} from "../types";
+import {CreateGiftReq, GiftEntity} from "../types";
 
 export const giftRouter = Router();
 
@@ -33,7 +33,7 @@ giftRouter
 
     .post('/', async (req, res) => {
 
-        const newGift = new GiftRecord(req.body as GiftEntity);
+        const newGift = new GiftRecord(req.body as CreateGiftReq);
         await newGift.insert();
 
         res.json(newGift);
