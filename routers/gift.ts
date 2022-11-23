@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {GiftRecord} from "../records/gift.record";
 import {ValidationError} from "../utils/errors";
+import {GiftEntity} from "../types";
 
 export const giftRouter = Router();
 
@@ -25,18 +26,16 @@ giftRouter
             throw new ValidationError('Cannot remove given gift')
         }
 
+        await gift.delete()
+
         res.end()
     })
 
     .post('/', async (req, res) => {
-        const data = {
-            ...req.body,
-            count: Number(req.body.count),
-        };
 
-        const newGift = new GiftRecord(data);
+        const newGift = new GiftRecord(req.body as GiftEntity);
         await newGift.insert();
 
-        res.redirect('/gift');
+        res.json(newGift);
     });
 
