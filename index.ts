@@ -1,7 +1,6 @@
 import * as express from "express";
 import * as cors from 'cors';
 import "express-async-errors";
-import {homeRouter} from "./routers/home";
 import {childRouter} from "./routers/child";
 import {giftRouter} from "./routers/gift";
 import"./utils/db";
@@ -18,7 +17,6 @@ app.use(express.urlencoded({
 app.use(express.static('public'));
 app.use(express.json()); // Content-type: application/json
 
-app.use('/', homeRouter);
 app.use('/child', childRouter);
 app.use('/gift', giftRouter);
 
