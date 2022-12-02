@@ -2,6 +2,7 @@ import {Router} from "express";
 import {ChildRecord} from "../records/child.record";
 import {GiftRecord} from "../records/gift.record";
 import {ValidationError} from "../utils/errors";
+import {ListChildrenRes} from "../types/child/child";
 
 export const childRouter = Router();
 
@@ -11,17 +12,17 @@ childRouter // /child
         const childrenList = await ChildRecord.listAll();
         const giftsList = await GiftRecord.listAll();
 
-        res.render('children/list', {
+        res.json( {
             childrenList,
             giftsList,
-        });
+        } as ListChildrenRes );
     })
 
     .post('/', async (req, res) => {
         const newChild = new ChildRecord(req.body);
         await newChild.insert();
 
-        res.redirect('/child');
+        res.json(newChild);
     })
 
     .patch('/gift/:childId', async (req, res) => {
@@ -42,6 +43,6 @@ childRouter // /child
         child.giftId = gift?.id ?? null;
         await child.update();
 
-        res.redirect('/child');
+        res.json(child)
     });
 
